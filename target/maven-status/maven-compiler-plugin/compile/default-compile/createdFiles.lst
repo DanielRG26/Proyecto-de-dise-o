@@ -23,6 +23,7 @@ com\labturnos\domain\Equipment.class
 com\labturnos\dto\CreateReservationRequest.class
 com\labturnos\dto\EquipmentCreateRequest.class
 com\labturnos\repository\ReservationRepository.class
+com\labturnos\config\CorsConfig.class
 com\labturnos\domain\Lab.class
 com\labturnos\repository\LabRepository.class
 com\labturnos\controller\AuthController.class
