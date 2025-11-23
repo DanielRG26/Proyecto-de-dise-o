@@ -36,11 +36,7 @@ public class UserService {
     }
     long count = users.count();
     if (desired == Role.ADMINISTRADOR) {
-      if (count == 0) {
-        u.setRole(Role.ADMINISTRADOR);
-      } else {
-        throw new IllegalStateException("Ya existe un administrador");
-      }
+      u.setRole(Role.ADMINISTRADOR);
     } else if (desired == Role.ESTUDIANTE) {
       u.setRole(Role.ESTUDIANTE);
     } else {

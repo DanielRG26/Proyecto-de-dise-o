@@ -72,4 +72,8 @@ public class EquipmentService {
   public List<Equipment> listByLab(String labId) {
     return equipment.findByLabId(labId);
   }
+
+  public List<Equipment> listAll() {
+    return equipment.findAll();
+  }
 }

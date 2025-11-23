@@ -59,6 +59,11 @@ public class AdminController {
     return ResponseEntity.ok(equipment.add(id, req.getIdentifier(), req.getType()));
   }
 
+  @GetMapping("/labs/{id}/equipment")
+  public ResponseEntity<?> listarEquiposPorLab(@PathVariable String id) {
+    return ResponseEntity.ok(equipment.listByLab(id));
+  }
+
   @DeleteMapping("/equipment/{id}")
   public ResponseEntity<Void> eliminarEquipo(@PathVariable String id) {
     equipment.remove(id);
@@ -73,6 +78,11 @@ public class AdminController {
   @PostMapping("/equipment/{id}/unblock")
   public ResponseEntity<Equipment> desbloquearEquipo(@PathVariable String id) {
     return ResponseEntity.ok(equipment.unblock(id));
+  }
+
+  @GetMapping("/equipment")
+  public ResponseEntity<?> listarEquipos() {
+    return ResponseEntity.ok(equipment.listAll());
   }
 
   @GetMapping("/reports/uso")

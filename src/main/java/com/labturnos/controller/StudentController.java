@@ -52,6 +52,27 @@ public class StudentController {
     return ResponseEntity.ok(map);
   }
 
+  @GetMapping("/labs/available")
+  public ResponseEntity<?> labsAvailable() {
+    var list = labs.listAll();
+    var data = new java.util.ArrayList<java.util.Map<String, Object>>();
+    list.forEach(l -> {
+      var eqs = equipment.listByLab(l.getId());
+      var recursos = eqs.stream()
+        .map(e -> java.util.Map.of(
+          "identifier", e.getIdentifier(),
+          "type", e.getType(),
+          "status", e.getStatus().name()
+        ))
+        .toList();
+      data.add(java.util.Map.of(
+        "laboratorio", l.getCode(),
+        "equipos", recursos
+      ));
+    });
+    return ResponseEntity.ok(data);
+  }
+
   @PostMapping("/reservas")
   public ResponseEntity<Reservation> reservar(Authentication auth, @Valid @RequestBody com.labturnos.dto.CreateReservationRequest req) {
     Reservation r = reservations.create(auth.getName(), req);
