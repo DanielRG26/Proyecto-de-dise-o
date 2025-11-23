@@ -6,6 +6,7 @@ import com.labturnos.dto.TokenResponse;
 import com.labturnos.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,5 +28,16 @@ public class AuthController {
   public ResponseEntity<TokenResponse> login(@Valid @RequestBody LoginRequest r) {
     String token = users.login(r);
     return ResponseEntity.ok(new TokenResponse(token));
+  }
+
+  @GetMapping("/me")
+  public ResponseEntity<?> me(Authentication auth) {
+    var u = users.require((String) auth.getPrincipal());
+    return ResponseEntity.ok(java.util.Map.of(
+      "id", u.getId(),
+      "fullName", u.getFullName(),
+      "email", u.getEmail(),
+      "role", u.getRole().name()
+    ));
   }
 }

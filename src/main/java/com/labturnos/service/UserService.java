@@ -30,7 +30,22 @@ public class UserService {
     u.setEmail(r.getEmail());
     u.setPhone(r.getPhone());
     u.setPasswordHash(encoder.encode(r.getPassword()));
-    u.setRole(users.count() == 0 ? Role.ADMINISTRADOR : Role.ESTUDIANTE);
+    Role desired = null;
+    if (r.getRole() != null) {
+      try { desired = Role.valueOf(r.getRole().toUpperCase()); } catch (Exception ignored) {}
+    }
+    long count = users.count();
+    if (desired == Role.ADMINISTRADOR) {
+      if (count == 0) {
+        u.setRole(Role.ADMINISTRADOR);
+      } else {
+        throw new IllegalStateException("Ya existe un administrador");
+      }
+    } else if (desired == Role.ESTUDIANTE) {
+      u.setRole(Role.ESTUDIANTE);
+    } else {
+      u.setRole(count == 0 ? Role.ADMINISTRADOR : Role.ESTUDIANTE);
+    }
     u.setCreatedAt(Instant.now());
     users.save(u);
   }

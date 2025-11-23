@@ -14,6 +14,7 @@ public class RegisterRequest {
   private String phone;
   @Size(min = 6)
   private String password;
+  private String role;
 
   public String getFullName() {
     return fullName;
@@ -45,5 +46,13 @@ public class RegisterRequest {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getRole() {
+    return role;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
   }
 }

@@ -55,5 +55,5 @@ while ($true) {
       '15' { $id=Read-Host "ID usuario"; DeleteUser $id }
       default { Write-Host "Opción inválida" }
     }
-  } catch { Write-Host $_.Exception.Message }
+  } catch { if ($_.ErrorDetails.Message) { Write-Host $_.ErrorDetails.Message } else { Write-Host $_.Exception.Message } }
 }
