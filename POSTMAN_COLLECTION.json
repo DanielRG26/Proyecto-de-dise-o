@@ -1,0 +1,705 @@
+{
+	"info": {
+		"_postman_id": "lab-turnos-api",
+		"name": "Lab Turnos API",
+		"description": "Colección completa de endpoints para la API de Laboratorios Turnos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fullName\": \"Juan Pérez\",\n  \"email\": \"juan@example.com\",\n  \"phone\": \"+1234567890\",\n  \"password\": \"password123\",\n  \"role\": \"ESTUDIANTE\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/register",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"juan@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT obtenido del login"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/auth/me",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["auth", "me"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin - Labs",
+			"item": [
+				{
+					"name": "Create Lab",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"code\": \"LAB-001\",\n  \"name\": \"Laboratorio de Computación\",\n  \"capacity\": 30\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/labs",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "labs"]
+						}
+					}
+				},
+				{
+					"name": "List All Labs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/admin/labs",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "labs"]
+						}
+					}
+				},
+				{
+					"name": "Update Lab Capacity",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/admin/labs/:id/capacity/:capacity",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "labs", ":id", "capacity", ":capacity"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "LAB_ID_AQUI"
+								},
+								{
+									"key": "capacity",
+									"value": "40"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Set Lab Schedule",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"dayOfWeek\": \"MONDAY\",\n    \"start\": \"08:00\",\n    \"end\": \"12:00\"\n  },\n  {\n    \"dayOfWeek\": \"TUESDAY\",\n    \"start\": \"08:00\",\n    \"end\": \"12:00\"\n  },\n  {\n    \"dayOfWeek\": \"WEDNESDAY\",\n    \"start\": \"08:00\",\n    \"end\": \"12:00\"\n  }\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/labs/:id/schedule",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "labs", ":id", "schedule"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "LAB_ID_AQUI"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin - Equipment",
+			"item": [
+				{
+					"name": "Add Equipment to Lab",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"identifier\": \"COMP-001\",\n  \"type\": \"Computadora\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/labs/:id/equipment",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "labs", ":id", "equipment"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "LAB_ID_AQUI"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "List Equipment by Lab",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/admin/labs/:id/equipment",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "labs", ":id", "equipment"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "LAB_ID_AQUI"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "List All Equipment",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/admin/equipment",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "equipment"]
+						}
+					}
+				},
+				{
+					"name": "Block Equipment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/admin/equipment/:id/block",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "equipment", ":id", "block"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "EQUIPMENT_ID_AQUI"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Unblock Equipment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/admin/equipment/:id/unblock",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "equipment", ":id", "unblock"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "EQUIPMENT_ID_AQUI"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Equipment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/admin/equipment/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "equipment", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "EQUIPMENT_ID_AQUI"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin - Users",
+			"item": [
+				{
+					"name": "List All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/admin/users",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "users"]
+						}
+					}
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/admin/users/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "users", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "USER_ID_AQUI"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Change User Role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"role\": \"ADMINISTRADOR\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/users/:id/role",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "users", ":id", "role"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "USER_ID_AQUI"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin - Reports",
+			"item": [
+				{
+					"name": "Usage Report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/admin/reports/uso",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "reports", "uso"]
+						}
+					}
+				},
+				{
+					"name": "Maintenance Report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/admin/reports/mantenimiento",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "reports", "mantenimiento"]
+						}
+					}
+				},
+				{
+					"name": "Active Users Report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/admin/reports/usuarios-activos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["admin", "reports", "usuarios-activos"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "Get Availability",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{student_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/student/availability",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["student", "availability"]
+						}
+					}
+				},
+				{
+					"name": "Get Available Labs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{student_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/student/labs/available",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["student", "labs", "available"]
+						}
+					}
+				},
+				{
+					"name": "Create Reservation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{student_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"labCode\": \"LAB-001\",\n  \"equipmentIdentifier\": \"COMP-001\",\n  \"date\": \"2024-12-01\",\n  \"startTime\": \"09:00\",\n  \"endTime\": \"11:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/reservas",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["student", "reservas"]
+						}
+					}
+				},
+				{
+					"name": "Modify Reservation",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{student_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"2024-12-01\",\n  \"startTime\": \"10:00\",\n  \"endTime\": \"12:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/reservas/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["student", "reservas", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "RESERVATION_ID_AQUI"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Cancel Reservation",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{student_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/student/reservas/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["student", "reservas", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "RESERVATION_ID_AQUI"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Reservation History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{student_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/student/reservas",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["student", "reservas"]
+						}
+					}
+				},
+				{
+					"name": "Get Notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{student_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/student/notificaciones",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["student", "notificaciones"]
+						}
+					}
+				},
+				{
+					"name": "Mark Notification as Read",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{student_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/student/notificaciones/:id/leer",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["student", "notificaciones", ":id", "leer"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "NOTIFICATION_ID_AQUI"
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "admin_token",
+			"value": ""
+		},
+		{
+			"key": "student_token",
+			"value": ""
+		}
+	]
+}
+

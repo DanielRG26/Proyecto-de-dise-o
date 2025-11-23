@@ -1,0 +1,28 @@
+[
+  {
+    "dayOfWeek": "MONDAY",
+    "start": "08:00",
+    "end": "12:00"
+  },
+  {
+    "dayOfWeek": "TUESDAY",
+    "start": "08:00",
+    "end": "12:00"
+  },
+  {
+    "dayOfWeek": "WEDNESDAY",
+    "start": "08:00",
+    "end": "12:00"
+  },
+  {
+    "dayOfWeek": "THURSDAY",
+    "start": "08:00",
+    "end": "12:00"
+  },
+  {
+    "dayOfWeek": "FRIDAY",
+    "start": "08:00",
+    "end": "12:00"
+  }
+]
+

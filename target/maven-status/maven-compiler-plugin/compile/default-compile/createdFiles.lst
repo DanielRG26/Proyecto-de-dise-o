@@ -25,12 +25,12 @@ com\labturnos\dto\EquipmentCreateRequest.class
 com\labturnos\repository\ReservationRepository.class
 com\labturnos\domain\Lab.class
 com\labturnos\repository\LabRepository.class
-com\labturnos\Application.class
 com\labturnos\controller\AuthController.class
 com\labturnos\domain\NotificationType.class
 com\labturnos\controller\AdminController.class
 com\labturnos\dto\LabCreateRequest.class
 com\labturnos\domain\Role.class
+com\labturnos\LabTurnosApplication.class
 com\labturnos\service\ReservationCompletionJob.class
 com\labturnos\service\EquipmentService.class
 com\labturnos\domain\Notification.class
